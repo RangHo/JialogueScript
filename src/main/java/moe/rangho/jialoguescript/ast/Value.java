@@ -1,5 +1,7 @@
 package moe.rangho.jialoguescript.ast;
 
+import java.lang.reflect.Type;
+
 import moe.rangho.jialoguescript.util.Executable;
 
 public abstract class Value extends Node {
@@ -13,4 +15,10 @@ public abstract class Value extends Node {
      * @return content of this node.
      */
     public abstract Object evaluate();  // TODO: I don't want this to box and unbox every time we execute this...
+
+    /**
+     * Gets the type of value stored by this object.
+     * @return type of this Value.
+     */
+    public abstract Type getType();
 }

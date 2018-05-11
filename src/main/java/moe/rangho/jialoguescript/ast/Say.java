@@ -4,7 +4,7 @@ import moe.rangho.jialoguescript.util.Character;
 import moe.rangho.jialoguescript.util.Executable;
 
 /**
- * Object representation of DialogueScript say statement.
+ * Represents DialogueScript Say statement.
  *
  * Usage:
  * <code>(Character value) : (String value)</code>

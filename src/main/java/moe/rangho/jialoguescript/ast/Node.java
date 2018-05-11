@@ -9,11 +9,6 @@ import moe.rangho.jialoguescript.util.Pair;
 public abstract class Node {
 
     /**
-     * Name of this node.
-     */
-    public static final String NAME = "Node";
-
-    /**
      * Location of this node in DialogueScript code.
      *
      * <code>val1</code> is line number, and <code>val2</code> is column number.
