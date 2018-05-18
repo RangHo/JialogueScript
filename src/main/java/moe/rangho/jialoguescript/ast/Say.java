@@ -1,7 +1,7 @@
 package moe.rangho.jialoguescript.ast;
 
-import moe.rangho.jialoguescript.util.Character;
-import moe.rangho.jialoguescript.util.Executable;
+import moe.rangho.jialoguescript.model.Character;
+import moe.rangho.jialoguescript.model.Executable;
 
 /**
  * Represents DialogueScript Say statement.

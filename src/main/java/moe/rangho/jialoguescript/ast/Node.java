@@ -1,7 +1,6 @@
 package moe.rangho.jialoguescript.ast;
 
-import moe.rangho.jialoguescript.util.Executable;
-import moe.rangho.jialoguescript.util.Pair;
+import moe.rangho.jialoguescript.model.Executable;
 
 /**
  * Base class of all DialogueScript nodes.
@@ -9,11 +8,14 @@ import moe.rangho.jialoguescript.util.Pair;
 public abstract class Node {
 
     /**
-     * Location of this node in DialogueScript code.
-     *
-     * <code>val1</code> is line number, and <code>val2</code> is column number.
+     * Number of line on which this node appears in the original script.
      */
-    protected Pair<Integer> location;
+    protected int line;
+
+    /**
+     * Column of line on which this node appears in the original script.
+     */
+    protected int column;
 
     /**
      * Method to execute when encountered.
@@ -27,7 +29,8 @@ public abstract class Node {
      * @param exec method to execute when this node is processed.
      */
     public Node(int line, int column, Executable exec) {
-        this.location = new Pair<>(line, column);
+        this.line = line;
+        this.column = column;
         this.exec = exec;
     }
 }

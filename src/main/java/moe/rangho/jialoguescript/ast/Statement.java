@@ -1,6 +1,6 @@
 package moe.rangho.jialoguescript.ast;
 
-import moe.rangho.jialoguescript.util.Executable;
+import moe.rangho.jialoguescript.model.Executable;
 
 /**
  * Base class for all DialogueScript statements (non-returning expressions).

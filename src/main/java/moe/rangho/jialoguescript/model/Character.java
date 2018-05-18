@@ -1,4 +1,4 @@
-package moe.rangho.jialoguescript.util;
+package moe.rangho.jialoguescript.model;
 
 /**
  * DialogueScript representation of a character.

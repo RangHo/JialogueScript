@@ -2,7 +2,7 @@ package moe.rangho.jialoguescript.ast;
 
 import java.lang.reflect.Type;
 
-import moe.rangho.jialoguescript.util.Executable;
+import moe.rangho.jialoguescript.model.Executable;
 
 /**
  * Represents DialogueScript string literal.
