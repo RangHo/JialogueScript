@@ -34,24 +34,6 @@ public class GenericStream<T> {
     }
 
     /**
-     * Returns the value at certain point of this stream.
-     * @param position location of the value
-     * @return the actual value at given location.
-     */
-    public T get(int position) {
-        return this.list.get(position);
-    }
-
-    /**
-     * Sets the value at certain point of this stream.
-     * @param position location of the value
-     * @param object the value to be set
-     */
-    public void set(int position, T object) {
-        this.list.set(position, object);
-    }
-
-    /**
      * Returns the value at current location without moving the pointer.
      * @return the element at current location
      */
@@ -67,6 +49,39 @@ public class GenericStream<T> {
         return this.list.get(this.position++);
     }
 
+    /**
+     * Returns given amount of values in the stream without moving the pointer.
+     * @param amount number of elements in stream to peek
+     * @return {@link List<T>} of elements in stream
+     */
+    public List<T> peek(int amount) {
+        // For this part, I would love to use T[] but Java won't let me construct T[] directly
+        // Converting from Object[] is not ideal, nor is guaranteed to work
+
+        List<T> list = new ArrayList<>();
+
+        for (int i = 0; i < amount; i++)
+            list.add(this.list.get(this.position + i));
+
+        return list;
+    }
+
+    /**
+     * Returns given amount of values in the stream then moves the pointer to the appropriate position.
+     * @param amount number of elements in stream to read
+     * @return {@link List<T>} of elements in stream
+     */
+    public List<T> read(int amount) {
+        // For the same reason as above, I have to use List<T>
+        // Hecc you Java for that
+
+        List<T> list = new ArrayList<>();
+
+        for (int i = 0; i < amount; i++)
+            list.add(read());
+
+        return list;
+    }
 
     /**
      * Returns the current location.

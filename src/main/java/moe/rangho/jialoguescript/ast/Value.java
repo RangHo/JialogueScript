@@ -1,8 +1,8 @@
 package moe.rangho.jialoguescript.ast;
 
-import java.lang.reflect.Type;
-
 import moe.rangho.jialoguescript.model.Executable;
+
+import java.lang.reflect.Type;
 
 public abstract class Value extends Node {
 

@@ -10,12 +10,12 @@ public class Token {
      * Represents a type of the token.
      */
     public enum Type {
-        KEYWORD,
-        IDENTIFIER,
-        PUNCTUATION,
-        NUMBER,
-        STRING,
-        NEWLINE
+        KEYWORD,        // Keyword token
+        IDENTIFIER,     // Identifier token
+        PUNCTUATION,    // Punctuation token
+        NUMBER,         // Number token (including floating point and integers
+        STRING,         // String literal token
+        NEWLINE         // End of line token
     }
 
     private Token(Type tokenType, Object value) {
