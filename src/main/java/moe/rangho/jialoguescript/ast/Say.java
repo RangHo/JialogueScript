@@ -1,24 +1,23 @@
 package moe.rangho.jialoguescript.ast;
 
-import moe.rangho.jialoguescript.model.Character;
-import moe.rangho.jialoguescript.model.Executable;
+public class Say extends Statement {
 
-/**
- * Represents DialogueScript Say statement.
- *
- * Usage:
- * <code>(Character value) : (String value)</code>
- */
-public final class Say extends Statement {
+    public static final String NAME = "Say Statement";
 
-    private Character character;
+    private Value character;
 
-    public Say(int line, int column, Executable exec, Character character) {
-        super(line, column, exec);
+    private Value dialogue;
+
+    public Say(Value character, Value dialogue) {
         this.character = character;
+        this.dialogue = dialogue;
     }
 
-    public Character getCharacter() {
-        return character;
+    @Override
+    public String toString() {
+        return Say.NAME + " ("
+               + "Character: " + this.character.toString() + " "
+               + "Content: " + this.dialogue.toString()
+               + ")";
     }
 }

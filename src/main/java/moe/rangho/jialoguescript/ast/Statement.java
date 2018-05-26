@@ -1,13 +1,11 @@
 package moe.rangho.jialoguescript.ast;
 
-import moe.rangho.jialoguescript.model.Executable;
-
-/**
- * Base class for all DialogueScript statements (non-returning expressions).
- */
 public abstract class Statement extends Node {
 
-    public Statement(int line, int column, Executable exec) {
-        super(line, column, exec);
+    public static final String NAME = "Statement";
+
+    @Override
+    public String toString() {
+        return Statement.NAME;
     }
 }

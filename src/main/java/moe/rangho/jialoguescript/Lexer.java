@@ -45,6 +45,10 @@ public class Lexer {
             return readIdentifier();
         if (Predicates.isPunctuation.test(nextChar))
             return readPunctuation();
+        if (nextChar == '"' || nextChar == '\'')
+            return readString();
+        if (nextChar == '\n')
+            return readNewline();
 
         throw new Exception("Unrecognized character: " + nextChar);
     }
@@ -70,6 +74,14 @@ public class Lexer {
 
     // Token readers
 
+    private Token readString() {
+        char delimiter = this.input.read(); // Get rid of the " or ' character
+        String content = readUntil((character) -> character == delimiter);
+        this.input.read();  // Get rid of the trailing " or ' character
+
+        return Token.createString(content);
+    }
+
     private Token readIdentifier() {
         String identifier = readWhile(Predicates.isIdentifier);
 
@@ -82,5 +94,9 @@ public class Lexer {
 
     private Token readPunctuation() {
         return Token.createPunctuation(this.input.read());
+    }
+
+    private Token readNewline() {
+        return Token.createNewline();
     }
 }

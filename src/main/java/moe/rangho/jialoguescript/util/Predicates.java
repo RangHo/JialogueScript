@@ -30,5 +30,5 @@ public class Predicates {
     };
 
     public static final Predicate<Character> isPunctuation = (character)
-            -> ".,:;'\"".indexOf(character) >= 0;
+            -> ".,:;(){}[]".indexOf(character) >= 0;
 }
