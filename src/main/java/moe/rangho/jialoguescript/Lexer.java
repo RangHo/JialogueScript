@@ -1,6 +1,6 @@
 package moe.rangho.jialoguescript;
 
-import moe.rangho.jialoguescript.util.GenericStream;
+import moe.rangho.jialoguescript.util.CharacterStream;
 import moe.rangho.jialoguescript.model.Token;
 import moe.rangho.jialoguescript.util.Predicates;
 
@@ -23,21 +23,15 @@ public class Lexer {
             "true"      // True boolean value
     };
 
-    private GenericStream<Character> input;
+    private CharacterStream input;
 
     public Lexer(String code) {
-        Character[] inputArr = new Character[code.length()];
-
-        // why primitive types no object java wtf
-        for (int i = 0; i < inputArr.length; i++)
-            inputArr[i] = code.charAt(i);
-
-        this.input = new GenericStream<>(inputArr);
+        this.input = new CharacterStream(code);
     }
 
     public Token next() throws Exception {
 
-        readUntil(Predicates.isWhitespace);
+        this.input.readUntil(Predicates.isWhitespace);
 
         char nextChar = this.input.peek();
 
@@ -53,37 +47,18 @@ public class Lexer {
         throw new Exception("Unrecognized character: " + nextChar);
     }
 
-    private String readWhile(Predicate<Character> predicate) {
-        StringBuilder sb = new StringBuilder();
-
-        while (predicate.test(this.input.peek()))
-            sb.append(this.input.read());
-
-        return sb.toString();
-    }
-
-    private String readUntil(Predicate<Character> predicate) {
-        StringBuilder sb = new StringBuilder();
-
-        while (true)
-            if (predicate.test(this.input.peek()))
-                return sb.toString();
-            else
-                sb.append(this.input.read());
-    }
-
     // Token readers
 
     private Token readString() {
         char delimiter = this.input.read(); // Get rid of the " or ' character
-        String content = readUntil((character) -> character == delimiter);
+        String content = this.input.readUntil((character) -> character == delimiter);
         this.input.read();  // Get rid of the trailing " or ' character
 
         return Token.createString(content);
     }
 
     private Token readIdentifier() {
-        String identifier = readWhile(Predicates.isIdentifier);
+        String identifier = this.input.readWhile(Predicates.isIdentifier);
 
         for (String keyword : Lexer.KEYWORDS)
             if (identifier.equals(keyword))
