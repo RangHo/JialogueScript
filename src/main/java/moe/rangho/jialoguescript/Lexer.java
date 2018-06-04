@@ -37,7 +37,7 @@ public class Lexer {
         this.input = new GenericStream<>(inputList);
     }
 
-    public Token next() throws Exception {
+    public Token next() {
 
         readWhile(Predicates.isWhitespace);
 
@@ -57,7 +57,7 @@ public class Lexer {
         if (nextChar == '\n')
             return readNewline();
 
-        throw new Exception("Unrecognized character: " + (int)nextChar);
+        throw new RuntimeException("Unrecognized character: " + (int)nextChar);
     }
     
     public String readWhile(Predicate<Character> predicate) {

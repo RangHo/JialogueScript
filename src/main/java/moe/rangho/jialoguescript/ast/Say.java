@@ -7,9 +7,9 @@ public class Say extends Statement {
 
     public static final String NAME = "Say Statement";
 
-    private Value character;
+    public final Value character;
 
-    private Value dialogue;
+    public final Value dialogue;
 
     public Say(Value character, Value dialogue) {
         this.character = character;

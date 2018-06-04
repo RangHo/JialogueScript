@@ -18,7 +18,7 @@ public class Parser {
         this.input = new GenericStream<>(input);
     }
 
-    public Node parse() {
+    public Program parse() {
         return parseProgram();
     }
 
