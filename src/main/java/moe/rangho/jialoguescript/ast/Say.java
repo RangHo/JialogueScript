@@ -19,7 +19,7 @@ public class Say extends Statement {
     @Override
     public String toString() {
         return Say.NAME + " ("
-               + "Character: " + this.character.toString() + " "
+               + "Character: " + this.character.toString() + " | "
                + "Content: " + this.dialogue.toString()
                + ")";
     }

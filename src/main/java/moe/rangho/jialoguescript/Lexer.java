@@ -1,9 +1,11 @@
 package moe.rangho.jialoguescript;
 
-import moe.rangho.jialoguescript.util.CharacterStream;
+import moe.rangho.jialoguescript.util.GenericStream;
 import moe.rangho.jialoguescript.model.Token;
 import moe.rangho.jialoguescript.util.Predicates;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 /**
@@ -23,15 +25,24 @@ public class Lexer {
             "true"      // True boolean value
     };
 
-    private CharacterStream input;
+    private GenericStream<Character> input;
 
     public Lexer(String code) {
-        this.input = new CharacterStream(code);
+        List<Character> inputList = new ArrayList<>();
+
+        // why primitive types no object java wtf
+        for (int i = 0; i < code.length(); i++)
+            inputList.add(code.charAt(i));
+
+        this.input = new GenericStream<>(inputList);
     }
 
     public Token next() throws Exception {
 
-        this.input.readUntil(Predicates.isWhitespace);
+        readWhile(Predicates.isWhitespace);
+
+        if (this.input.isEnd())
+            return null;
 
         char nextChar = this.input.peek();
 
@@ -41,24 +52,54 @@ public class Lexer {
             return readPunctuation();
         if (nextChar == '"' || nextChar == '\'')
             return readString();
+        if (Predicates.isDigit.test(nextChar))
+            return readNumber();
         if (nextChar == '\n')
             return readNewline();
 
-        throw new Exception("Unrecognized character: " + nextChar);
+        throw new Exception("Unrecognized character: " + (int)nextChar);
+    }
+    
+    public String readWhile(Predicate<Character> predicate) {
+        StringBuilder sb = new StringBuilder();
+
+        while (!this.input.isEnd()
+               && predicate.test(this.input.peek()))
+            sb.append(this.input.read());
+
+        return sb.toString();
+    }
+    
+    public String readUntil(Predicate<Character> predicate) {
+        StringBuilder sb = new StringBuilder();
+
+        while (!this.input.isEnd())
+            if (predicate.test(this.input.peek()))
+                break;
+            else
+                sb.append(this.input.read());
+
+        return sb.toString();
     }
 
     // Token readers
 
     private Token readString() {
         char delimiter = this.input.read(); // Get rid of the " or ' character
-        String content = this.input.readUntil((character) -> character == delimiter);
+        String content = readUntil((character) -> character == delimiter);
         this.input.read();  // Get rid of the trailing " or ' character
 
         return Token.createString(content);
     }
 
+    private Token readNumber() {
+        String content = readUntil(Predicates.isDigit);
+        int result = Integer.parseInt(content);
+        return Token.createNumber(result);
+    }
+
     private Token readIdentifier() {
-        String identifier = this.input.readWhile(Predicates.isIdentifier);
+        String identifier = readWhile(Predicates.isIdentifier);
 
         for (String keyword : Lexer.KEYWORDS)
             if (identifier.equals(keyword))
@@ -72,6 +113,7 @@ public class Lexer {
     }
 
     private Token readNewline() {
+        this.input.read();  // eat the newline character
         return Token.createNewline();
     }
 }

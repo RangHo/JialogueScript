@@ -31,4 +31,7 @@ public class Predicates {
 
     public static final Predicate<Character> isPunctuation = (character)
             -> ".,:;(){}[]".indexOf(character) >= 0;
+
+    public static final Predicate<Character> isDigit = (character)
+            -> "0123456789".indexOf(character) >= 0;
 }

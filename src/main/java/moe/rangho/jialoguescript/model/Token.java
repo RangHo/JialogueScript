@@ -4,7 +4,7 @@ public class Token {
 
     private Object content;
 
-    private final int typeFlag;
+    private final Type type;
 
     /**
      * Represents a type of the token.
@@ -13,24 +13,13 @@ public class Token {
         KEYWORD,        // Keyword token
         IDENTIFIER,     // Identifier token
         PUNCTUATION,    // Punctuation token
-        NUMBER,         // Number token (including floating point and integers
+        NUMBER,         // NumberLiteral token (including floating point and integers
         STRING,         // StringLiteral literal token
-        NEWLINE;        // End of line token
-
-        public final int flag;
-
-        Type() {
-            this.flag = 1 << ordinal();
-        }
+        NEWLINE         // End of line token
     }
 
     private Token(Type tokenType, Object value) {
-        this.typeFlag = tokenType.flag;
-        this.content = value;
-    }
-
-    public Token(int tokenFlag, Object value) {
-        this.typeFlag = tokenFlag;
+        this.type = tokenType;
         this.content = value;
     }
 
@@ -39,16 +28,7 @@ public class Token {
     }
 
     public Type getType() {
-        for (Type item : Type.values())
-            if (this.typeFlag == item.flag)
-                return item;
-
-        return null;
-    }
-
-    public boolean contains(Token that) {
-        return (this.typeFlag & that.typeFlag) == that.typeFlag
-               && this.content.equals(that.content);
+        return this.type;
     }
 
     public static Token createKeyword(String keyword) {
