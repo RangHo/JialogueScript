@@ -4,15 +4,8 @@ public class Identifier extends Value<String> {
 
     public static final String NAME = "Identifier";
 
-    private String content;
-
     public Identifier(String content) {
-        this.content = content;
-    }
-
-    @Override
-    public String getContent() {
-        return this.content;
+        super(content);
     }
 
     @Override

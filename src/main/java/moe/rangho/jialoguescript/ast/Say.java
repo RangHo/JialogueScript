@@ -1,5 +1,8 @@
 package moe.rangho.jialoguescript.ast;
 
+/**
+ * Represents DialogueScript Say statement.
+ */
 public class Say extends Statement {
 
     public static final String NAME = "Say Statement";
